@@ -1,0 +1,15 @@
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TikTok-koppeling</title><link rel="stylesheet" href="../style.css"></head><body><main>
+<h1>TikTok-koppeling</h1>
+<div id="ok" class="card" hidden><p>✅ Ingelogd bij TikTok. Kopieer de code hieronder en plak hem in de chat bij Claude.</p>
+<pre id="code"></pre><button id="btn">Kopieer code</button><p class="mut" id="hint"></p></div>
+<div id="err" class="card" hidden><p>❌ Inloggen is niet gelukt: <span id="msg"></span></p></div>
+<div id="none" class="card"><p>Deze pagina is het terugkeeradres na inloggen met TikTok voor de NL Fun Clips Uploader.</p></div>
+<script>
+const q=new URLSearchParams(location.search),code=q.get('code'),e=q.get('error');
+if(code){document.getElementById('none').hidden=true;document.getElementById('ok').hidden=false;
+ const payload=JSON.stringify({code:code,state:q.get('state')||''});document.getElementById('code').textContent=payload;
+ document.getElementById('btn').onclick=()=>{const done=()=>{document.getElementById('btn').textContent='Gekopieerd ✓'};
+  if(navigator.clipboard)navigator.clipboard.writeText(payload).then(done,()=>{document.getElementById('hint').textContent='Selecteer de tekst hierboven en kopieer hem.'});}}
+else if(e){document.getElementById('none').hidden=true;document.getElementById('err').hidden=false;document.getElementById('msg').textContent=e+' '+(q.get('error_description')||'')}
+</script></main></body></html>
